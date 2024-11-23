@@ -89,14 +89,14 @@ var solidCubeLookups = [
 	6,7,3,   6,3,2,//bottom
 ];
 
-// Same as solidCubeLookups
+// Same as wireCubeLookups
 var secondCubeLookups = [
-    0,4,6,   0,6,2, //front
-    1,0,2,   1,2,3, //right
-    5,1,3,   5,3,7,//back
-    4,5,7,   4,7,6,//left
-    4,0,1,   4,1,5,//top
-    6,7,3,   6,3,2,//bottom
+    0,4,6,2,0, //front
+    1,0,2,3,1, //right
+    5,1,3,7,5, //back
+    4,5,7,6,4, //right
+    4,0,1,5,4, //top
+    6,7,3,2,6, //bottom
 ];
 
 //Expand Wire Cube data: this wire cube will be white...
@@ -217,6 +217,9 @@ function render() {
 	var at =  vec3(0.0, 0.0, 0.0);
 	var up =  vec3(0.0, 1.0, 0.0);
 
+    p = ortho(-3, 3, -3, 3, 1, 100); // Orthographic projection (Used 3 to make it look like in the pdf)
+    gl.uniformMatrix4fv(projLoc, gl.TRUE, flatten(transpose(p)));
+
     // Draw the axes
 	mv = lookAt(eye,at,up);
 	gl.uniformMatrix4fv(mvLoc, gl.TRUE, flatten(transpose(mv)));
@@ -228,10 +231,15 @@ function render() {
     gl.drawArrays(shapes.wireCube.type, shapes.wireCube.start, shapes.wireCube.size);
 
     // Second cube
-    mv = lookAt(eye,at,up);
-    mv = mult(mv, translate(0,0,0)); // Centering the cube at -1,0,0
-    mv = mult(mv, rotate(45, 0, 1, 0)); // Rotating 45 degrees around y-axis
-    gl.uniformMatrix4fv(mvLoc, gl.TRUE, flatten(transpose(mv)));
+    var mv2 = lookAt(eye,at,up);
+    mv2 = mult(mv2, translate(0,0,0));
+    //mv = mult(mv, translate(1,1,0));
+    //mv = mult(mv, rotate(45, 0, 1, 0)); // Rotating 45 degrees around y-axis
+    mv2 = mult(mv2, translate(1,0,0));
+    mv2 = mult(mv2, rotate(45, 0, 0, 1));
+
+    //mv = mult(mv, translate(1,1,0)); // Order matters
+    gl.uniformMatrix4fv(mvLoc, gl.TRUE, flatten(transpose(mv2)));
     gl.drawArrays(shapes.secondcube.type, shapes.secondcube.start, shapes.secondcube.size);
 }
 
