@@ -14,7 +14,7 @@ Goals of this project are:
 Start with boxes.html and boxes.js form Part1 folder. When you run boxes.html, you 
 should see as below firstly. 
 
-![Figure 1](figure1.png)
+![Figure 1](https://github.com/fsaltunyuva/CMPE360-Project7-WebGL2/blob/main/Figures/Figure%201.png)
 
 This program draws a basic coordinate system with a green x-axis, a red y-  axis, and a blue z-axis. These will be referred to in the instructions as the axes.
 With the initial camera settings, you are looking directly down the z-axis so you will not see it.
@@ -54,18 +54,18 @@ orthographic projection instead of the perspective call. The function for that i
 ortho. Use left, right, bottom, top, near and far values that include the whole 
 scene and not much more. See the picture for expected results.
 
-![Figure 2](figure2.png)
+![Figure 2](https://github.com/fsaltunyuva/CMPE360-Project7-WebGL2/blob/main/Figures/Figure%202.png)
 
 10. Rotate everything (using modelling transformations NOT lookAt) so that 
 looking down at the top of the boxes and seeing the blue z-axis (and no red y- 
 axis). See the picture for expected results. 
 
-![Figure 3](figure3.png)
+![Figure 3](https://github.com/fsaltunyuva/CMPE360-Project7-WebGL2/blob/main/Figures/Figure%203.png)
 
 11. Rotate everything so that you can see all three axes along with the cubes. See 
 the picture for expected results.
 
-![Figure 4](figure4.png)
+![Figure 4](https://github.com/fsaltunyuva/CMPE360-Project7-WebGL2/blob/main/Figures/Figure%204.png)
 
 12. Camera Position Adjustment: The camera can be moved up, left, down, or right 
 using the 'w', 'a', 's', and 'd' keys.
@@ -73,7 +73,7 @@ using the 'w', 'a', 's', and 'd' keys.
 ### Part 2
 When you open Part2 folder and run robot_arm.html you should see like below default robot arm. 
 
-![Figure 5](figure5.png)
+![Figure 5](https://github.com/fsaltunyuva/CMPE360-Project7-WebGL2/blob/main/Figures/Figure%205.png)
 
 - First load the application and see how it works. Try pressing lower and uppercase 'e' to 
 move the elbow. Try pressing lower and uppercase 's' to move the shoulder.
@@ -85,4 +85,4 @@ with an inverse rotate, translate or scale.
 - Finally, add some code that will make the finger and thumb move apart when 'f' is 
 pressed and together when 'F' is pressed. The center of rotation should be at the wrist.
 
-![Figure 6](figure6.png)
+![Figure 6](https://github.com/fsaltunyuva/CMPE360-Project7-WebGL2/blob/main/Figures/Figure%206.png)
