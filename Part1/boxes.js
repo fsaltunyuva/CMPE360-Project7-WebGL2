@@ -207,13 +207,35 @@ window.onload = function init() {
 //----------------------------------------------------------------------------
 // Rendering Event Function
 //----------------------------------------------------------------------------
+// Part 1 - 12
+var eye = vec3(0.0, 0.0, 10.0);
+var moveAmount = 0.2;
+
+// Used this tutorial https://www.geeksforgeeks.org/how-addeventlistener-works-for-keydown-on-html-5-canvas/
+window.addEventListener("keydown", function(event) {
+    switch(event.key) {
+        case 'w': // Move up
+            eye[1] += moveAmount;
+            break;
+        case 's': // Move down
+            eye[1] -= moveAmount;
+            break;
+        case 'a': // Move left
+            eye[0] -= moveAmount;
+            break;
+        case 'd': // Move right
+            eye[0] += moveAmount;
+            break;
+    }
+    render();
+});
 
 function render() {
 
 	gl.clear(gl.DEPTH_BUFFER_BIT | gl.COLOR_BUFFER_BIT);
 	
 	//Set initial view
-	var eye = vec3(0.0, 0.0, 10.0);
+	// var eye = vec3(0.0, 0.0, 10.0);
 	var at =  vec3(0.0, 0.0, 0.0);
 	var up =  vec3(0.0, 1.0, 0.0);
 
@@ -222,24 +244,32 @@ function render() {
 
     // Draw the axes
 	mv = lookAt(eye,at,up);
+    mv = mult(mv, translate(-1, 0, 0)); // Part 1 - 10
+    mv = mult(mv, rotate(90, 1, 0, 0)); // Part 1 - 10
+    mv = mult(mv, translate(1, 0, 0));  // Part 1 - 10
+    mv = mult(mv, rotate(45, 1, 0, 0)); // Part 1 - 11
+    mv = mult(mv, rotate(45, 0, 1, 0)); // Part 1 - 11
 	gl.uniformMatrix4fv(mvLoc, gl.TRUE, flatten(transpose(mv)));
 	gl.drawArrays(shapes.axes.type, shapes.axes.start, shapes.axes.size);
 
     // First cube
-    mv = mult(mv, translate(1,0,0));  // Centering the cube at 1,0,0
-    gl.uniformMatrix4fv(mvLoc, gl.TRUE, flatten(transpose(mv)));
+    var mv2 = lookAt(eye,at,up);
+    mv2 = mult(mv, translate(1,0,0));  // Centering the cube at 1,0,0
+    mv2 = mult(mv, translate(0.5,-0.5,-0.5)); // Part 1 - 10
+    gl.uniformMatrix4fv(mvLoc, gl.TRUE, flatten(transpose(mv2)));
     gl.drawArrays(shapes.wireCube.type, shapes.wireCube.start, shapes.wireCube.size);
 
     // Second cube
-    var mv2 = lookAt(eye,at,up);
-    mv2 = mult(mv2, translate(0,0,0));
-    //mv = mult(mv, translate(1,1,0));
-    //mv = mult(mv, rotate(45, 0, 1, 0)); // Rotating 45 degrees around y-axis
-    mv2 = mult(mv2, translate(1,0,0));
-    mv2 = mult(mv2, rotate(45, 0, 0, 1));
-
-    //mv = mult(mv, translate(1,1,0)); // Order matters
-    gl.uniformMatrix4fv(mvLoc, gl.TRUE, flatten(transpose(mv2)));
+    var mv3 = lookAt(eye,at,up);
+    mv3 = mult(mv3, translate(0,0,0)); // Part 1 - 10
+    // mv3 = mult(mv, translate(1,1,0));
+    // mv3 = mult(mv, rotate(45, 0, 1, 0)); // Rotating 45 degrees around y-axis
+    // mv3 = mult(mv2, translate(1,0,0)); // Part 1 - 10
+    // mv3 = mult(mv2, rotate(45, 0, 0, 1)); // Part 1 - 10
+    mv3 = mult(mv3, translate(0.75,1,1)); // Part 1 - 10 & 11
+    mv3 = mult(mv3, rotate(45, 1, 0, 0)); // Part 1 - 10 & 11
+    //mv3 = mult(mv, translate(1,1,0)); // Order matters
+    gl.uniformMatrix4fv(mvLoc, gl.TRUE, flatten(transpose(mv3)));
     gl.drawArrays(shapes.secondcube.type, shapes.secondcube.start, shapes.secondcube.size);
 }
 
